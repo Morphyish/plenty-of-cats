@@ -1,4 +1,7 @@
 <script>
+	import Cross from './Icons/Cross.svelte'
+	import Like from './Icons/Like.svelte'
+
 	let cat
 	let isLoading = false
 
@@ -24,43 +27,69 @@
 </script>
 
 <main>
-	<div class="wrapper">
-		{#if isLoading}
-			loading
-		{:else if cat}
-			<img src={cat.url}  alt={`Picture of cat ${cat.id}`}/>
-		{/if}
-	</div>
-	<div class="actions">
-		<button type="button" on:click={fetchCat} disabled={isLoading}>NO</button>
-		<button type="button" on:click={fetchCat} disabled={isLoading}>YES</button>
-	</div>
+    <div class="wrapper">
+        {#if isLoading}
+            <span>loading...</span>
+        {:else if cat}
+            <img src={cat.url} alt={`Picture of cat ${cat.id}`} />
+        {/if}
+    </div>
+    <div class="actions">
+        <button class="reject" type="button" on:click={fetchCat} disabled={isLoading}>
+			<Cross />
+        </button>
+        <button class="like" type="button" on:click={fetchCat} disabled={isLoading}>
+			<Like />
+		</button>
+    </div>
 </main>
 
 <style>
-	main {
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-		width: 100vw;
-	}
+    main {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+    }
 
-	.wrapper {
-		flex: 1;
-		overflow: hidden;
-	}
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        overflow: hidden;
+        background: #333;
+        color: #fff;
+    }
 
-	img {
-		height: 80vh;
-	}
+    img {
+        max-width: 100vw;
+        max-height: 80vh;
+        margin: auto;
+    }
 
-	.actions {
-		display: flex;
-		height: 20vh;
-	}
+    .actions {
+        display: flex;
+        height: 20vh;
+    }
 
-	button {
-		flex: 1;
-		margin: 0;
-	}
+    button {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+    }
+
+    button.reject {
+        color: darkred;
+    }
+
+    button.like {
+        color: green;
+    }
+
+    button[disabled] {
+        color: #ccc;
+    }
 </style>
